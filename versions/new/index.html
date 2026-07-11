@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#050505">
+    <title>background-torn</title>
+    <link rel="preload" href="./img/ModelLand.jpg" as="image">
+    <link rel="preload" href="./img/ModelTornLand.jpg" as="image">
+    <link rel="stylesheet" href="./css/index.css">
+    <script src="./js/index.js" defer></script>
+</head>
+<body>
+    <main class="experience" data-reveal>
+        <h1 class="sr-only">background-torn</h1>
+
+        <section class="scene" aria-label="Scroll controlled torn background">
+            <div class="stage" aria-hidden="true">
+                <img
+                    class="stage__image stage__image--base"
+                    src="./img/ModelLand.jpg"
+                    alt=""
+                    fetchpriority="high"
+                    decoding="async"
+                >
+                <img
+                    class="stage__image stage__image--torn"
+                    src="./img/ModelTornLand.jpg"
+                    alt=""
+                    decoding="async"
+                >
+                <div class="tear-edge"></div>
+                <div class="stage__grain"></div>
+                <div class="stage__shade"></div>
+            </div>
+
+            <div class="scene__chrome" aria-hidden="true">
+                <div class="progress-rail">
+                    <span class="progress-rail__fill"></span>
+                </div>
+
+                <svg class="scroll-cue" viewBox="0 0 32 32" role="img">
+                    <path d="M7.5 11.5 16 20l8.5-8.5" />
+                </svg>
+            </div>
+        </section>
+    </main>
+</body>
+</html>

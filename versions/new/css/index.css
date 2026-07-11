@@ -1,0 +1,261 @@
+:root {
+    color-scheme: dark;
+    background: #050505;
+    font-family:
+        Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont,
+        "Segoe UI", sans-serif;
+}
+
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+
+html {
+    min-height: 100%;
+    background: #050505;
+}
+
+body {
+    min-height: 100%;
+    margin: 0;
+    overflow-x: hidden;
+    background: #050505;
+}
+
+img,
+svg {
+    display: block;
+}
+
+.sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    white-space: nowrap;
+    border: 0;
+    clip: rect(0 0 0 0);
+    clip-path: inset(50%);
+}
+
+.experience {
+    --progress: 0;
+    --tear-x: 7%;
+    --gray: 0%;
+    --overlay-opacity: 0.08;
+    --edge-opacity: 0.18;
+    --base-scale: 1.035;
+    --torn-scale: 1.06;
+    --parallax: 1.1vw;
+
+    min-height: 260svh;
+    background: #050505;
+}
+
+.scene {
+    position: sticky;
+    top: 0;
+    min-height: 100svh;
+    overflow: hidden;
+    overflow: clip;
+    isolation: isolate;
+    background: #050505;
+}
+
+.stage,
+.stage__image,
+.tear-edge,
+.stage__grain,
+.stage__shade,
+.scene__chrome {
+    position: absolute;
+    inset: 0;
+}
+
+.stage {
+    z-index: 0;
+}
+
+.stage__image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+    pointer-events: none;
+    user-select: none;
+    transform: translateZ(0);
+    will-change: clip-path, filter, opacity, transform;
+}
+
+.stage__image--base {
+    filter: grayscale(var(--gray)) contrast(1.04) saturate(1.05);
+    transform: scale(var(--base-scale));
+}
+
+.stage__image--torn {
+    opacity: var(--overlay-opacity);
+    filter: contrast(1.08) saturate(0.88);
+    transform: translateX(var(--parallax)) scale(var(--torn-scale));
+    clip-path: polygon(
+        0 0,
+        calc(var(--tear-x) - 3.2vw) 0,
+        calc(var(--tear-x) + 1.4vw) 8%,
+        calc(var(--tear-x) - 1.2vw) 17%,
+        calc(var(--tear-x) + 2.4vw) 29%,
+        calc(var(--tear-x) - 0.8vw) 42%,
+        calc(var(--tear-x) + 2.7vw) 55%,
+        calc(var(--tear-x) - 1.8vw) 69%,
+        calc(var(--tear-x) + 1.9vw) 84%,
+        calc(var(--tear-x) - 0.6vw) 100%,
+        0 100%
+    );
+}
+
+.tear-edge {
+    left: var(--tear-x);
+    right: auto;
+    width: clamp(28px, 4.8vw, 82px);
+    transform: translateX(-50%) rotate(0.35deg);
+    opacity: var(--edge-opacity);
+    mix-blend-mode: screen;
+    pointer-events: none;
+    background:
+        linear-gradient(
+            90deg,
+            transparent 0%,
+            rgba(255, 255, 255, 0.08) 22%,
+            rgba(255, 255, 255, 0.86) 48%,
+            rgba(255, 255, 255, 0.26) 64%,
+            transparent 100%
+        );
+    filter: blur(0.25px) drop-shadow(0 0 18px rgba(255, 255, 255, 0.18));
+    clip-path: polygon(
+        46% 0,
+        72% 7%,
+        48% 16%,
+        77% 27%,
+        42% 38%,
+        68% 50%,
+        39% 62%,
+        71% 73%,
+        45% 87%,
+        63% 100%,
+        19% 100%,
+        34% 88%,
+        11% 75%,
+        35% 63%,
+        13% 51%,
+        39% 39%,
+        17% 28%,
+        42% 17%,
+        24% 8%
+    );
+}
+
+.stage__grain {
+    opacity: 0.09;
+    mix-blend-mode: overlay;
+    pointer-events: none;
+    background-image:
+        radial-gradient(circle at 25% 12%, rgba(255, 255, 255, 0.5) 0 1px, transparent 1px),
+        radial-gradient(circle at 78% 64%, rgba(255, 255, 255, 0.38) 0 1px, transparent 1px);
+    background-size: 86px 86px, 112px 112px;
+    animation: grain-shift 700ms steps(2, end) infinite;
+}
+
+.stage__shade {
+    z-index: 1;
+    pointer-events: none;
+    background:
+        radial-gradient(circle at 50% 44%, transparent 0 44%, rgba(0, 0, 0, 0.68) 100%),
+        linear-gradient(90deg, rgba(0, 0, 0, 0.42), transparent 34%, rgba(0, 0, 0, 0.54));
+}
+
+.scene__chrome {
+    z-index: 2;
+    pointer-events: none;
+}
+
+.progress-rail {
+    position: absolute;
+    top: 50%;
+    right: clamp(18px, 3vw, 44px);
+    width: 2px;
+    height: min(34svh, 260px);
+    overflow: hidden;
+    border-radius: 999px;
+    background: rgba(255, 255, 255, 0.18);
+    transform: translateY(-50%);
+}
+
+.progress-rail__fill {
+    width: 100%;
+    height: 100%;
+    transform: scaleY(var(--progress));
+    transform-origin: 50% 0;
+    border-radius: inherit;
+    background: rgba(255, 255, 255, 0.88);
+}
+
+.scroll-cue {
+    position: absolute;
+    left: 50%;
+    bottom: clamp(18px, 5svh, 52px);
+    width: clamp(28px, 4vw, 40px);
+    height: clamp(28px, 4vw, 40px);
+    color: rgba(255, 255, 255, 0.72);
+    transform: translateX(-50%);
+    animation: cue-drift 1.8s ease-in-out infinite;
+}
+
+.scroll-cue path {
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 2.2;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+}
+
+@keyframes grain-shift {
+    to {
+        transform: translate3d(-18px, 14px, 0);
+    }
+}
+
+@keyframes cue-drift {
+    50% {
+        transform: translate(-50%, 10px);
+    }
+}
+
+@media (max-width: 720px) {
+    .experience {
+        min-height: 230svh;
+    }
+
+    .stage__image {
+        object-position: 48% center;
+    }
+
+    .progress-rail {
+        right: 16px;
+        height: 28svh;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .stage__grain,
+    .scroll-cue {
+        animation: none;
+    }
+
+    .stage__image,
+    .tear-edge,
+    .progress-rail__fill {
+        will-change: auto;
+    }
+}

@@ -1,70 +1,116 @@
+:root {
+    color-scheme: dark;
+    font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    background: #111;
+}
+
 * {
-    margin: 0;
-    padding: 0;
+    box-sizing: border-box;
 }
 
-.container {
-    position: relative;
-    width: 100%;
-    height: 100vh;
-    overflow: auto;
-}
-
-.container .section {
-    position: relative;
+html,
+body {
     width: 100%;
     height: 100%;
-    background-blend-mode: multiple;
+    margin: 0;
+    overflow: hidden;
 }
 
-.container .section:nth-child(1) {
-    background: url('../img/ModelLand.jpg');
-    background-size: cover;
-    background-attachment: fixed;
-
-    animation: original 1s linear infinite;
-    animation-play-state: paused;
-
-    animation-delay: calc(var(--scroll) * -1s);
-    animation-iteration-count: 1;
-    animation-fill-mode: both;
+body {
+    display: grid;
+    grid-template-rows: auto 1fr;
+    background: #111;
 }
 
-#Capa_1 {
-    padding-left: 10px;
-    opacity: 0%;
-    animation: svg-arrow 2s ease-in-out;
-    animation-iteration-count: 2;
+.version-switcher {
+    position: relative;
+    z-index: 2;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    min-height: 58px;
+    padding: 9px 14px 9px 18px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+    background: rgba(17, 17, 17, 0.96);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.28);
 }
 
-@keyframes svg-arrow {
-    to {
-        transform: translateY(300px);
-        opacity: 100%;
+.version-switcher__title {
+    color: rgba(255, 255, 255, 0.72);
+    font-size: 0.82rem;
+    font-weight: 650;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+}
+
+.version-switcher__controls {
+    display: flex;
+    gap: 5px;
+    padding: 4px;
+    border-radius: 999px;
+    background: rgba(255, 255, 255, 0.08);
+}
+
+.version-button {
+    border: 0;
+    border-radius: 999px;
+    padding: 8px 14px;
+    color: rgba(255, 255, 255, 0.68);
+    background: transparent;
+    font: inherit;
+    font-size: 0.82rem;
+    font-weight: 650;
+    cursor: pointer;
+}
+
+.version-button:hover {
+    color: #fff;
+    background: rgba(255, 255, 255, 0.08);
+}
+
+.version-button:focus-visible {
+    outline: 2px solid #fff;
+    outline-offset: 2px;
+}
+
+.version-button.is-active {
+    color: #111;
+    background: #fff;
+}
+
+.preview,
+.preview__frame {
+    width: 100%;
+    height: 100%;
+    min-height: 0;
+}
+
+.preview__frame {
+    display: block;
+    border: 0;
+    background: #050505;
+}
+
+@media (max-width: 520px) {
+    .version-switcher {
+        padding-left: 10px;
+        padding-right: 10px;
     }
-}
 
-.container .section:nth-child(2) {
-    background: url('../img/ModelTornLand.jpg');
-    background-size: cover;
-    background-attachment: fixed;
-
-    animation: torn 1s linear infinite;
-    animation-play-state: paused;
-
-    animation-delay: calc(var(--scroll) * -1s);
-    animation-iteration-count: 1;
-    animation-fill-mode: both;
-}
-@keyframes original {
-    to {
-        transform-origin: 0%;
-        filter: grayscale(100%);
+    .version-switcher__title {
+        position: absolute;
+        width: 1px;
+        height: 1px;
+        overflow: hidden;
+        clip-path: inset(50%);
     }
-}
 
-@keyframes torn {
-    to {
-        filter: grayscale(100%);
+    .version-switcher__controls {
+        width: 100%;
+    }
+
+    .version-button {
+        flex: 1;
     }
 }

@@ -1,17 +1,34 @@
-const containerTorn = document.querySelector('.container');
+const preview = document.querySelector('[data-preview]');
+const buttons = document.querySelectorAll('[data-version]');
 
-containerTorn.addEventListener(
-    'scroll',
-    () => {
-        calculatedPercentage =
-            containerTorn.offsetHeight /
-            6 /
-            (document.body.offsetHeight - containerTorn.scrollTop);
-        if (calculatedPercentage == 'Infinity') {
-            calculatedPercentage = 100;
-        }
-
-        document.body.style.setProperty('--scroll', calculatedPercentage);
+const versions = {
+    old: {
+        source: './versions/old/index.html',
+        title: 'Old background-torn version',
     },
-    false
-);
+    new: {
+        source: './versions/new/index.html',
+        title: 'New background-torn version',
+    },
+};
+
+const showVersion = (versionName) => {
+    const version = versions[versionName];
+
+    if (!preview || !version) {
+        return;
+    }
+
+    preview.src = version.source;
+    preview.title = version.title;
+
+    buttons.forEach((button) => {
+        const isActive = button.dataset.version === versionName;
+        button.classList.toggle('is-active', isActive);
+        button.setAttribute('aria-pressed', String(isActive));
+    });
+};
+
+buttons.forEach((button) => {
+    button.addEventListener('click', () => showVersion(button.dataset.version));
+});
