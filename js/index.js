@@ -3,11 +3,11 @@ const buttons = document.querySelectorAll('[data-version]');
 
 const versions = {
     old: {
-        source: './versions/old/index.html?v=2',
+        source: './versions/old/index.html?v=3',
         title: 'Old background-torn version',
     },
     new: {
-        source: './versions/new/index.html?v=2',
+        source: './versions/new/index.html?v=3',
         title: 'New background-torn version',
     },
 };
